@@ -25,4 +25,4 @@ const postMessage = (req, res) => {
 
 }
 
-module.exports = (getMessages, postMessage);
+module.exports = { getMessages, postMessage };
