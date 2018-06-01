@@ -9,13 +9,14 @@ const getMessages = (req, res) => {
 
 const postMessage = (req, res) => {
     //console.log('req.body: ', req.body);
+    console.log('ENTERING POSTMESSAGE! / SAVING MESSAGE TO DATABASE.');
     const messageToSave = {
         created_by: req.body.name,
         created_at: new Date(),
         message: req.body.message,
         tag: req.body.tag
       }
-      console.log('message To Save: ', messageToSave);
+     // console.log('message To Save: ', messageToSave);
     Message.create(messageToSave, (err, savedMessage) => {
         if (err) return res.end(err);
         else res.status(200).send(savedMessage);
