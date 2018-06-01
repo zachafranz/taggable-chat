@@ -17,7 +17,7 @@ $(document).ready(function(){
         //console.log('I was clicked')
         var chatMessage = $("#txtMessage").val()
         var username = $("#txtName").val()
-        $( "#messages" ).append(username + ": " + chatMessage + "<br>");
+        $( "#chatlog" ).append(username + ": " + chatMessage + "<br>");
     })
 })
 
