@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
     created_by: {type: String, required: true},
-    created_at: {type: Date, default: Date.now},
+    created_at: {type: Date, default: new Date()},
     message: {type: String, required: true}, 
     tag: {type: String, required: false}
 });
