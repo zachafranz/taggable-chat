@@ -25,11 +25,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/message', (req, res) => {
-  messageController.getMessages(req, res);
+  res.setHeader('Content-Type')
+  res.send('hey')
+  //messageController.getMessages(req, res);
 });
 
 app.post('/message', (req, res) => {
-  messageController.postMessage(req, res);
+  response.setHeader('Content-Type', 'application/json')
+  //messageController.postMessage(req, res);
 
 });
 

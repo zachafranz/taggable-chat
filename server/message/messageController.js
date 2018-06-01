@@ -11,11 +11,11 @@ const postMessage = (req, res) => {
 
     Message.create(messageToSave, (err) => {
         if (err) return res.end(err);
-          messageToSave = {
-            created_by: req.body.name,
-            created_at: Date.now,
-            message: req.body.message,
-            tag: null
+        else messageToSave = {
+          created_by: req.body.name,
+          created_at: Date.now,
+          message: req.body.message,
+          tag: null
         };
     }, (err, message) => {
         if (err) res.status(400).send('error occured in saving message');
