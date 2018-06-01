@@ -1,0 +1,21 @@
+body {
+    background-color: green;
+}
+
+.chatBox {
+    width: 400px;
+    margin: auto;
+}
+
+.appTitle {
+    color: white;
+    text-align: center;
+}
+
+#chatlog {
+    height: 400px;
+    background-color:white;
+    border: 1px solid black;
+    overflow: scroll;
+
+}
