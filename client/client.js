@@ -4,20 +4,30 @@
 $(document).ready(function(){
 
     ////////////////
+    var response = '';
+    $.ajax({ type: "GET",   
+             url: "http://localhost:3000/message",   
+             async: false,
+             success : function(text)
+             {
+                 response = text;
+             }
+    });
+    console.log('response: ', response);
+    // for each obj in response obj
+    response.forEach(function(el) {
+        $( "#chatlog" ).append(el.created_by + ': ' + el.message + "<br>"); 
+    });
+      // grab created_by and message values
+    
 
-    function postChat(message){
-        console.log('ENTERING POSTCHAT! / SENDING CHATMESSAGE TO SERVER');
-        $.post("http://localhost:3000/message", message)
-        console.log('Message: ', message);
-    }
 
          $("#send").click(() => {
             console.log('ENTERING CLICK! / CREATING CHAT MESSAGE VAR');
             var chatMessage = {
                 name: $("#txtName").val(), message: $("#txtMessage").val()
             }
-            postChat(chatMessage)
-            console.log('ChatMessage', chatMessage);
+            $.post("http://localhost:3000/message", chatMessage);
         })
 
         $('#txtMessage').keypress(function (e) {
@@ -26,11 +36,12 @@ $(document).ready(function(){
                 var chatMessage = {
                     name: $("#txtName").val(), message: $("#txtMessage").val()
                 }
-                postChat(chatMessage)
-                console.log('ChatMessage', chatMessage);
+                $.post("http://localhost:3000/message", chatMessage);
               return false;  
             }
         });
+
+        // $.get("http://localhost:3000/message");
 
         // $.when( $("#send").click(() => {
         //     console.log('in click');
