@@ -13,7 +13,6 @@ $(document).ready(function(){
                  response = text;
              }
     });
-    console.log('response: ', response);
     // for each obj in response obj
     response.forEach(function(el) {
         $( "#chatlog" ).append(el.created_by + ': ' + el.message + "<br>"); 
