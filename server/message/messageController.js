@@ -2,8 +2,13 @@ const Message = require('./messageModel');
 
 const getMessages = (req, res) => {
   Message.find({}, (err, foundMessages) => {
-      if(err) return res.end(err);
-      else res.send(foundMessages);
+      if(err) {
+          return res.end(err);
+      } else {
+          console.log('foundMessages: ', foundMessages);
+          console.log('success');
+      }
+    //   else res.send(foundMessages);
   });
 };
 
