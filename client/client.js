@@ -2,25 +2,7 @@
 //username = "User"
 
 $(document).ready(function(){
-
-    ////////////////
-  var response = '';
-  $.ajax({ 
-    type: "GET",   
-    url: "http://localhost:3000/message",   
-    async: false,
-    success : function(text) {
-      response = text;
-      }
-    });
-
-    console.log('response: ', response);
-    // for each obj in response obj
-    response.forEach(function(el) {
-      $( "#chatlog" ).append(el.created_by + ': ' + el.message + "<br>"); 
-    });
-    // grab created_by and message values
-    
+    // grab created_by and message values  
     $("#send").click(() => {
       var chatMessage = { name: $("#txtName").val(), message: $("#txtMessage").val() };
       $.post("http://localhost:3000/message", chatMessage);
@@ -30,41 +12,27 @@ $(document).ready(function(){
     if (e.which == 13) {
       //console.log('I was pressed')
       var chatMessage = { name: $("#txtName").val(), message: $("#txtMessage").val() };
-    $.post("http://localhost:3000/message", chatMessage);
-    return false;  
+      $.post("/message", chatMessage);
+      chatMessage.message = '';
+      return false;  
     }
     });
 
-        // $.get("http://localhost:3000/message");
-
-        // $.when( $("#send").click(() => {
-        //     console.log('in click');
-        //     var chatMessage = {
-        //         name: $("#txtName").val(), message: $("#txtMessage").val()
-        //     }
-        //     //postChat(message)
-        // })).then(postChat(chatMessage))
-    
-    
-    ////////////
-    
-    // $('#txtMessage').keypress(function (e) {
-    //     if (e.which == 13) {
-    //         //console.log('I was pressed')
-    //         var chatMessage = $("#txtMessage").val()
-    //         var username = $("#txtName").val()
-    //         $( "#chatlog" ).append(username + ": " + chatMessage + "<br>");
-    //       return false;  
-    //     }
-    //   });
-
-    // $("#send").click(function() {
-    //     //console.log('I was clicked')
-    //     var chatMessage = $("#txtMessage").val()
-    //     var username = $("#txtName").val()
-    //     $( "#chatlog" ).append(username + ": " + chatMessage + "<br>");
-    // })
-
-    
+    var length = 0;
+    setInterval(() => {
+      var response = '';
+      $.ajax({ 
+        type: "GET",   
+        url: "/message",   
+        async: false,
+        success : function(text) {
+          response = text;
+          if(response.length > length) {
+            $( "#chatlog" ).append(`${response[response.length - 1].created_by}: ${response[response.length - 1].message}<br>`);   
+            length = response.length;
+          }
+        }
+      });
+  }, 200);
 })
 

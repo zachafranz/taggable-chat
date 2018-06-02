@@ -1,21 +1,26 @@
 body {
-    background-color: green;
+  background-color: green;
 }
 
 .chatBox {
-    width: 400px;
-    margin: auto;
+  width: 400px;
+  margin: auto;
+  overflow: none;
 }
 
 .appTitle {
-    color: white;
-    text-align: center;
+  color: white;
+  text-align: center;
 }
 
 #chatlog {
-    height: 400px;
-    background-color:white;
-    border: 1px solid black;
-    overflow: scroll;
+  height: 400px;
+  background-color:white;
+  border: 1px solid black;
+  overflow: auto;
+}
 
+
+#name {
+  color: blue;
 }
