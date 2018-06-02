@@ -13,7 +13,6 @@ mongoose.connect('mongodb://ddeste01:Robert123!@ds029824.mlab.com:29824/chatapp'
 app.use(express.static(path.join(__dirname, './../client')));
 // extended true === deep parsing
 app.use(bodyParser.urlencoded({extended: true}));
-// expect JSON
 app.use(bodyParser.json());
 
 
@@ -23,7 +22,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/message', messageController.getMessages);
-
 app.post('/message', messageController.postMessage);
 
 app.listen(3000, () => {
