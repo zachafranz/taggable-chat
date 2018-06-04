@@ -5,7 +5,7 @@ const messageSchema = new Schema({
   created_by: { type: String, required: true },
   created_at: { type: Date, default: new Date() },
   message: { type: String, required: true },
-  tag: { type: Array, default: [] },
+  tag: { type: Array, default: [] }
 });
 
 module.exports = mongoose.model('Message', messageSchema);
