@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 const createMessageHtml = (messageObj) => {
   // Takes in obj with expected fields: _id, created_by, message
@@ -89,6 +88,9 @@ $(document).ready(function(){
     });
     $.post("/tag", { tagIdArr: messageIdArr, tagText: $('#tageNameInput').val() });
   });
+  
+//console.log('in here')
+var loggedInUser = null;
 
   $('#txtMessage').keypress(function (e) {
     if (e.which == 13) {
@@ -97,26 +99,47 @@ $(document).ready(function(){
     }
   });
 
-  // Add initial messages
 
-  var length = 0;
+  let numOfMessages = -10;
+  let displayedMessages = [];
   setInterval(() => {
-    var response = '';
-    $.ajax({ 
-      type: "GET",   
-      url: "/message",   
+    $.ajax({
+      type: "GET",
+      url: "/message",
       async: false,
-      success : function(text) {
-        console.log(text);
-        console.log(length);
-        response = text;
-        if(response.length > length) {
-          let messageToAppend = createMessageHtml(response[response.length - 1]);
-          $('#chatlog').append(messageToAppend);
-          length = response.length;
-        }
+      success: function (response) {
+        response.slice(numOfMessages).forEach((message) => {
+          if (!displayedMessages.includes(message._id)) {
+            displayedMessages.push(message._id)
+            $("#chatlog").append(createMessageHtml(message));
+          }
+        });
       }
     });
-  }, 2000);
+  }, 3000);
+
+  $("#login").click(() => {
+    
+    console.log('clicked Login Buttton');
+    
+    $.post("http://localhost:3000/login", {
+      userName: $("#userName").val(),
+      password: $("#password").val()
+    }, (response, status) => {
+        console.log(response);
+    });
+  });
+
+  $("#signup").click(() => {
+    
+    console.log('clicked Login Buttton');
+    
+    $.post("http://localhost:3000/signup", {
+      userName: $("#userName").val(),
+      password: $("#password").val()
+    }, (response, status) => {
+        console.log(response);
+    });
+  });
 })
 
