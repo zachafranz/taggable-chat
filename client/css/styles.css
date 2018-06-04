@@ -20,7 +20,32 @@ body {
   overflow: auto;
 }
 
-
 #name {
   color: blue;
+}
+
+.tagable:hover {
+  background-color: red;
+}
+
+.tagged {
+  background-color: orange;
+}
+
+.hiddenTags {
+  visibility: hidden;
+  height: 0px;
+}
+
+.deletableTagClass {
+  background-color: red;
+}
+
+.tagSpanClass {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  border: 1px solid gray;
+  border-radius: 25%;
 }
