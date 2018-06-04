@@ -1,9 +1,9 @@
-
+/* eslint-disable */
 const createMessageHtml = (messageObj) => {
   // Takes in obj with expected fields: _id, created_by, message
 
   console.log(messageObj);
-  let divElem = $("<div></div>")
+  let divElem = $("<div></div>");
 
   let tagElem = $("<p></p>").addClass('tagsClass hiddenTags');
   messageObj.tag.forEach((elem) => {
@@ -36,6 +36,9 @@ const createMessageHtml = (messageObj) => {
 
 let taggingAction = false;
 let deletingTags = false;
+let loggedInUser = null;
+let numOfMessages = -10;
+let displayedMessages = [];
 
 $(document).ready(function(){
 
@@ -88,9 +91,6 @@ $(document).ready(function(){
     });
     $.post("/tag", { tagIdArr: messageIdArr, tagText: $('#tageNameInput').val() });
   });
-  
-//console.log('in here')
-var loggedInUser = null;
 
   $('#txtMessage').keypress(function (e) {
     if (e.which == 13) {
@@ -99,9 +99,6 @@ var loggedInUser = null;
     }
   });
 
-
-  let numOfMessages = -10;
-  let displayedMessages = [];
   setInterval(() => {
     $.ajax({
       type: "GET",
