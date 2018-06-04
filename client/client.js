@@ -1,5 +1,5 @@
 //console.log('in here')
-//username = "User"
+var loggedInUser = null;
 
 const createMessageHtml = (messageObj) => {
   // Takes in obj with expected fields: _id, created_by, message
@@ -59,5 +59,29 @@ $(document).ready(function () {
       }
     });
   }, 3000);
+
+  $("#login").click(() => {
+    
+    console.log('clicked Login Buttton');
+    
+    $.post("http://localhost:3000/login", {
+      userName: $("#userName").val(),
+      password: $("#password").val()
+    }, (response, status) => {
+        console.log(response);
+    });
+  });
+
+  $("#signup").click(() => {
+    
+    console.log('clicked Login Buttton');
+    
+    $.post("http://localhost:3000/signup", {
+      userName: $("#userName").val(),
+      password: $("#password").val()
+    }, (response, status) => {
+        console.log(response);
+    });
+  });
 })
 

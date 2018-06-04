@@ -1,9 +1,13 @@
-const messageController = require('./message/messageController');
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const messageController = require('./message/messageController');
+const UserController = require('./user/UserController');
+
+//not sure if we need this line
+mongoose.Promise = global.Promise;
 const app = express();
 
 //********  conneect to mongo database
@@ -24,6 +28,12 @@ app.get('/', (req, res) => {
 app.get('/message', messageController.getMessages);
 app.post('/message', messageController.postMessage);
 
+
+// ****** Shaf's code - Adding routes to handle user login and signup ********
+app.post('/login', UserController.loginUser);
+app.post('/signup', UserController.findUser, UserController.createUser);
+
+// **** end of Shaf's code *******
 app.listen(3000, () => {
   console.log('listening on Port 3000');
 });
