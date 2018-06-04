@@ -1,5 +1,5 @@
 //console.log('in here')
-//username = "User"
+var loggedInUser = null;
 
 $(document).ready(function(){
     // grab created_by and message values  
@@ -34,5 +34,31 @@ $(document).ready(function(){
         }
       });
   }, 200);
+
+  // ***************Shaf's Code - Adding funtionality to Login and Submit buttons for user login or signup*******//
+  $("#login").click(() => {
+    
+    console.log('clicked Login Buttton');
+    
+    $.post("http://localhost:3000/login", {
+      userName: $("#userName").val(),
+      password: $("#password").val()
+    }, (response, status) => {
+        console.log(response);
+    });
+  });
+
+  $("#signup").click(() => {
+    
+    console.log('clicked Login Buttton');
+    
+    $.post("http://localhost:3000/signup", {
+      userName: $("#userName").val(),
+      password: $("#password").val()
+    }, (response, status) => {
+        console.log(response);
+    });
+  });
+  //************** end of Shaf's script code */
 })
 
