@@ -39,11 +39,13 @@ let deletingTags = false;
 let loggedInUser = null;
 let numOfMessages = -10;
 let displayedMessages = [];
+let loginGreeting = $("<div></div>");
 
 $(document).ready(function(){
+  $(".chatBox").hide();
 
   $("#send").click(() => {
-    var chatMessage = { name: $("#txtName").val(), message: $("#txtMessage").val() };
+    var chatMessage = { name: loggedInUser, message: $("#txtMessage").val() };
     $.post("http://localhost:3000/message", chatMessage);
   });
 
@@ -94,7 +96,7 @@ $(document).ready(function(){
 
   $('#txtMessage').keypress(function (e) {
     if (e.which == 13) {
-      var chatMessage = { name: $("#txtName").val(), message: $("#txtMessage").val() };
+      var chatMessage = { name: loggedInUser, message: $("#txtMessage").val() };
       $.post("/message", chatMessage);
     }
   });
@@ -124,18 +126,33 @@ $(document).ready(function(){
       password: $("#password").val()
     }, (response, status) => {
         console.log(response);
+        let errResponse = 'The username and/or password combination does not exist. Please retry.';
+        if(response === errResponse) alert(response);
+        else {
+          loggedInUser = response;
+          loginGreeting.text(`Welcome back, ${response}!`).addClass("loginGreeting").insertBefore(".appTitle");
+          $('.userManager').hide();
+          $(".chatBox").show();
+        }
     });
   });
 
   $("#signup").click(() => {
     
-    console.log('clicked Login Buttton');
+    console.log('clicked Signup Buttton');
     
     $.post("http://localhost:3000/signup", {
       userName: $("#userName").val(),
       password: $("#password").val()
     }, (response, status) => {
-        console.log(response);
+      let errResponse = 'User exists!';
+        if(response === errResponse) alert('The username exits. Please login or select an unique username.');
+        else {
+          loggedInUser = response;
+          loginGreeting.text(`Welcome, ${response}!`).addClass("loginGreeting").insertBefore(".appTitle");
+          $('.userManager').hide();
+          $(".chatBox").show();
+        }
     });
   });
 })
