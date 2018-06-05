@@ -35,6 +35,7 @@ const tagMessages = (req, res) => {
     (err, docs) => {
       console.log('error:', err);
       console.log('docs:', docs);
+      res.status(200).send();
     }
   );
 };
@@ -51,6 +52,7 @@ const deleteTag = (req, res) => {
     (err, docs) => {
       console.log('error:', err);
       console.log('docs:', docs);
+      res.status(200).send();
     }
   );
 };
