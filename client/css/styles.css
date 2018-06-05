@@ -35,6 +35,8 @@ body {
 .hiddenTags {
   visibility: hidden;
   height: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .deletableTagClass {

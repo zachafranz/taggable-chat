@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home page</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="css/styles.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="./client.js"></script>
+    <title>Home page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="./client.js"></script>
 </head>
 <body>
-<!-- Shaf's Code - Adding UserAccount Management Section -->
-<div class="userManager">
-  <form>
-    <input id="userName" type="text" placeholder="Unique Username">
-    <br>
-    <input id="password" type="text">
-    <br>
-    <br>
-    <button id="login" type="button">Log In</button>
-    <br>
-    <button id="signup" type="button">Sign up</button>
-  </form>
-</div>
-<!-- end of Shaf's Code - Adding UserAccount Management Section -->
 
-<h1 class="appTitle"> TagChat</h1>
+  <div class="userManager">
+    <form>
+      <input id="userName" type="text" placeholder="Unique Username">
+      <br>
+      <input id="password" type="text">
+      <br>
+      <br>
+      <button id="login" type="button">Log In</button>
+      <br>
+      <button id="signup" type="button">Sign up</button>
+    </form>
+  </div>
+
+  <h1 class="appTitle"> TagChat</h1>
   <br>
   <div class="chatBox">
     <div id="chatlog"></div>
@@ -40,6 +39,6 @@
     <br>
     <input type="text" name="tagName" id="tageNameInput"/>
     <button id="tagMessagesBtn" class="btn btn-info">Tag Selected Messages</button>
-    </div>
-  </body>
+  </div>
+</body>
 </html>
