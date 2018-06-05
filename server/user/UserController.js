@@ -9,8 +9,8 @@ const UserController = {
       
     }).then((foundUser) => {
       console.log('foundUser in DB', foundUser);
-      if (!foundUser) res.send('The username and/or password combination does not exist');
-      else res.send(`Welcome back ${foundUser.userName}`);
+      if (!foundUser) res.send('The username and/or password combination does not exist. Please retry.');
+      else res.send(foundUser.userName);
     }).catch((err) => {
       res.status(400).send('There was an error; please try logging in again.');
     });

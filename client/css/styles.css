@@ -51,3 +51,12 @@ body {
   border: 1px solid gray;
   border-radius: 25%;
 }
+
+.loginGreeting {
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
