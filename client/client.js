@@ -146,6 +146,7 @@ $(document).ready(function () {
   });
 
   setInterval(() => {
+    if (loggedInUser === null) return;
     $.ajax({
       type: "GET",
       url: "/message",
