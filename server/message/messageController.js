@@ -16,6 +16,7 @@ const postMessage = (req, res) => {
     created_at: new Date(),
     message: req.body.message,
   };
+  console.log('cookies: ', req.cookies);
   // console.log('message To Save: ', messageToSave);
   Message.create(messageToSave, (err, savedMessage) => {
     if (err) return res.end(err);
