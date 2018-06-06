@@ -9,15 +9,30 @@ const createMessageHtml = (messageObj) => {
   if ($('#hideOrShowTagsBtn').text() === 'Show Tags') tagContainer.addClass("hiddenTags");
 
   messageObj.tag.forEach((elem) => {
-    let tagElem = $("<span></span>").text(elem).addClass('tagSpanClass').data('messageid', messageObj._id)
+    let tagElem = $("<span></span>").text(elem).addClass('tagSpanClass')
+      .data({'messageid': messageObj._id, 'tags': messageObj.tag})
     if (deletingTags) tagElem.addClass("deletableTagClass");
 
     tagElem.click((event) => {
       if (deletingTags) {
         console.log('Remove this from tag array', $(event.target).data('messageid'), event.target.innerText);
+        console.log('Tags are currently', $(event.target).data('tags'))
+        let messageOfTagId = $(event.target).data('messageid');
+
+        if (ALL_FILTERS.length !== 0 &&
+          !$(event.target).data('tags')
+            .filter((elem) => elem !== event.target.innerText)
+            .some((tag) => ALL_FILTERS.includes(tag)) 
+          ) {
+          console.log(displayedMessages);
+          //remove element from html and mem array if there are filters and there are no tags that match
+          displayedMessages.splice(displayedMessages.findIndex((obj) => obj.id === messageOfTagId) ,1);
+          console.log(displayedMessages);
+          $('.js-div-' + messageOfTagId).remove();
+        }
         $.post(
           "/deleteTag", 
-          { messageId: $(event.target).data('messageid'), tagText: event.target.innerText },
+          { messageId: messageOfTagId, tagText: event.target.innerText },
           (data) => {
             console.log('Done with tag delete', data);
           });
@@ -40,7 +55,18 @@ const createMessageHtml = (messageObj) => {
   })
   divElem.append(messageElem, tagContainer);
   return divElem;
-}
+};
+
+const createFilterTagHtml = (filterTag) => {
+  let filterTagElem = $("<div></div>").text(filterTag);
+  filterTagElem.click((event)=> {
+    ALL_FILTERS.splice(ALL_FILTERS.indexOf(event.target.innerText), 1);
+    displayedMessages = [];
+    $("#chatlog").empty();
+    $(event.target).remove();
+  })
+  return filterTagElem;
+};
 
 let taggingAction = false;
 let deletingTags = false;
@@ -48,6 +74,7 @@ let loggedInUser = null;
 let numOfMessages = -10;
 let displayedMessages = [];
 let loginGreeting = $("<div></div>");
+let ALL_FILTERS = [];
 
 const compareTagArrays = (arr1, arr2) => {
   if (arr1.length !== arr2.length) return false;
@@ -124,22 +151,28 @@ $(document).ready(function(){
       url: "/message",
       async: false,
       success: function (response) {
-        response.slice(numOfMessages).forEach((message) => {
-          if ( displayedMessages.length === 0 ||  !displayedMessages.map((obj) => obj.id).includes(message._id) ) {
-              displayedMessages.push({ id: message._id, tags: message.tag })
-              $("#chatlog").append(createMessageHtml(message));
-          } else if (
-              displayedMessages.map((obj) => obj.id).includes(message._id) && 
-              !compareTagArrays(message.tag, displayedMessages.filter((obj) => obj.id === message._id)[0].tags)
-            ) {
-              let objToModify = displayedMessages.findIndex((obj) => obj.id === message._id);
-              displayedMessages[objToModify].tags = message.tag;
-              $(".js-div-" + message._id).replaceWith(createMessageHtml(message))
+        response.slice( Math.min(numOfMessages, -1 * displayedMessages.length) ).forEach((message) => {
+          if (ALL_FILTERS.length === 0 || ALL_FILTERS.some((filter) => message.tag.includes(filter))) {
+            if ( displayedMessages.length === 0 ||  !displayedMessages.map((obj) => obj.id).includes(message._id) ) {
+                displayedMessages.push({ id: message._id, tags: message.tag })
+                $("#chatlog").append(createMessageHtml(message));
+            } else if (
+                displayedMessages.map((obj) => obj.id).includes(message._id) && 
+                !compareTagArrays(message.tag, displayedMessages.filter((obj) => obj.id === message._id)[0].tags)
+              ) {
+                let objToModify = displayedMessages.findIndex((obj) => obj.id === message._id);
+                displayedMessages[objToModify].tags = message.tag;
+                $(".js-div-" + message._id).replaceWith(createMessageHtml(message))
+            }
+          } else {
+            console.log('Did not pass filters');
+            console.log('filters',ALL_FILTERS);
+            console.log('messageTags', message.tag);
           }
         });
       }
     });
-  }, 3000);
+  }, 5000);
 
   $("#login").click(() => {
     
@@ -178,6 +211,16 @@ $(document).ready(function(){
           $(".chatBox").show();
         }
     });
+  });
+
+  $("#filterMessagesBtn").click(() => {
+    console.log('Filtering Messages');
+    let filterText = $("#filterTagsInput").val();
+    ALL_FILTERS.push(filterText);
+    console.log('Filters are now', ALL_FILTERS);
+    displayedMessages = [];
+    $("#chatlog").empty();
+    $('#filterContainer').append(createFilterTagHtml(filterText))
   });
 })
 
