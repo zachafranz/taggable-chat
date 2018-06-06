@@ -45,8 +45,8 @@ const createMessageHtml = (messageObj) => {
   let messageElem = $("<p></p>").text(messageObj.created_by + ': ' + messageObj.message);
   messageElem.addClass('messageClass').attr('id', messageObj._id);
   if (taggingAction) messageElem.addClass("tagable");
-  
-  messageElem.click((event)=> {
+
+  messageElem.click((event) => {
     if (taggingAction) {
       console.log('Message was clicked', event.target.id);
       let $elem = $('#' + event.target.id);
@@ -81,7 +81,7 @@ const compareTagArrays = (arr1, arr2) => {
   return arr1.every((elem, ind) => elem === arr2[ind]);
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   $(".chatBox").hide();
 
   $("#send").click(() => {
@@ -106,7 +106,7 @@ $(document).ready(function(){
     if ($('#hideOrShowTagsBtn').text() === 'Show Tags') {
       $("#hideOrShowTagsBtn").text('Hide Tags');
       $(".tagsClass").removeClass("hiddenTags");
-      $("#deleteTagsBtn").removeAttr("disabled"); 
+      $("#deleteTagsBtn").removeAttr("disabled");
     } else {
       $("#hideOrShowTagsBtn").text('Show Tags');
       $(".tagsClass").addClass("hiddenTags");
@@ -176,41 +176,42 @@ $(document).ready(function(){
   }, 5000);
 
   $("#login").click(() => {
-    
+
     console.log('clicked Login Buttton');
-    
+
     $.post("http://localhost:3000/login", {
       userName: $("#userName").val(),
       password: $("#password").val()
     }, (response, status) => {
+      console.log("Mahfuz is Testing: ", response);
+      let errResponse = 'The username and/or password combination does not exist. Please retry.';
+      if (response === errResponse) alert(response);
+      else {
+        loggedInUser = response;
         console.log(response);
-        let errResponse = 'The username and/or password combination does not exist. Please retry.';
-        if(response === errResponse) alert(response);
-        else {
-          loggedInUser = response;
-          loginGreeting.text(`Welcome back, ${response}!`).addClass("loginGreeting").insertBefore(".appTitle");
-          $('.userManager').hide();
-          $(".chatBox").show();
-        }
+        loginGreeting.text(`Welcome back, ${response}!`).addClass("loginGreeting").insertBefore(".appTitle");
+        $('.userManager').hide();
+        $(".chatBox").show();
+      }
     });
   });
 
   $("#signup").click(() => {
-    
+
     console.log('clicked Signup Buttton');
-    
+
     $.post("http://localhost:3000/signup", {
       userName: $("#userName").val(),
       password: $("#password").val()
     }, (response, status) => {
       let errResponse = 'User exists!';
-        if(response === errResponse) alert('The username exits. Please login or select an unique username.');
-        else {
-          loggedInUser = response;
-          loginGreeting.text(`Welcome, ${response}!`).addClass("loginGreeting").insertBefore(".appTitle");
-          $('.userManager').hide();
-          $(".chatBox").show();
-        }
+      if (response === errResponse) alert('The username exits. Please login or select an unique username.');
+      else {
+        loggedInUser = response;
+        loginGreeting.text(`Welcome, ${response}!`).addClass("loginGreeting").insertBefore(".appTitle");
+        $('.userManager').hide();
+        $(".chatBox").show();
+      }
     });
   });
 
