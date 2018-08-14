@@ -1,0 +1,62 @@
+body {
+  background-color: #2196f3;
+}
+
+.chatBox {
+  width: 400px;
+  margin: auto;
+  overflow: none;
+}
+
+.appTitle {
+  color: white;
+  text-align: center;
+}
+
+#chatlog {
+  height: 400px;
+  background-color:white;
+  border: 1px solid black;
+  overflow: auto;
+}
+
+#name {
+  color: blue;
+}
+
+.tagable:hover {
+  background-color: red;
+}
+
+.tagged {
+  background-color: orange;
+}
+
+.hiddenTags {
+  visibility: hidden;
+  height: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.deletableTagClass {
+  background-color: red;
+}
+
+.tagSpanClass {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  border: 1px solid gray;
+  border-radius: 25%;
+}
+
+.loginGreeting {
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}

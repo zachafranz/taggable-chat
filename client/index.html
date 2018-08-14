@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="./client.js"></script>
+</head>
+<body>
+
+  <div class="userManager">
+    <form>
+      <input id="userName" type="text" placeholder="Unique Username">
+      <br>
+      <input id="password" type="text">
+      <br>
+      <br>
+      <button id="login" type="button">Log In</button>
+      <br>
+      <button id="signup" type="button">Sign up</button>
+    </form>
+  </div>
+
+  <h1 class="appTitle"> TagChat</h1>
+  <br>
+  <div class="chatBox">
+    <div id="chatlog"></div>
+    <br>
+    <textarea id="txtMessage" class="form-control" placeholder="Message"></textarea>
+    <br>
+    <button id="send" class="btn btn-info">Send</button>
+    <br>
+    <button id="hideOrShowTagsBtn" class="btn btn-info">Show Tags</button>
+    <button id="deleteTagsBtn" class="btn btn-info">Delete Tags</button>
+    <br>
+    <button id="selectMessagesBtn" class="btn btn-info">Select Messages to Tag</button>
+    <br>
+    <input type="text" name="tagName" id="tageNameInput"/>
+    <button id="tagMessagesBtn" class="btn btn-info">Tag Selected Messages</button>
+    <input type="text" name="filterTags" id="filterTagsInput"/>
+    <button id="filterMessagesBtn" class="btn btn-info">Filter Messages by Tag</button>
+    <br>
+    <div id="filterContainer"></div>
+  </div>
+</body>
+</html>
